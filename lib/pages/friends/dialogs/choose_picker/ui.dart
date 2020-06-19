@@ -6,14 +6,15 @@ import 'package:task/pages/friends/dialogs/choose_picker/picker_option.dart';
 class ChooseImagePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-//      color: Colors.transparent,
+    return Material(
+      elevation: 0,
+//      backgroundColor: Colors.transparent,
+      color: Colors.transparent,
       child: Center(
         child: Container(
           color: Colors.white,
-          height: (240.h),
-          width: 250,
+          height: (213.h),
+          width: 345.w,
           child: Column(
             children: [
               Align(
@@ -24,6 +25,20 @@ class ChooseImagePicker extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  ImagePickerOption(
+                    title: 'إلتقاط صورة',
+                    icon: Container(
+                      height: 80.h,
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Icon(
+                        FontAwesomeIcons.camera,
+                        size: 30,
+                      ),
+                    ),
+                  ),
                   ImagePickerOption(
                     title: 'معرض الصور',
                     icon: Stack(
@@ -53,20 +68,6 @@ class ChooseImagePicker extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ImagePickerOption(
-                    title: 'إلتقاط صورة',
-                    icon: Container(
-                      height: 80.h,
-                      width: 80.w,
-                      decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Icon(
-                        FontAwesomeIcons.camera,
-                        size: 30,
-                      ),
-                    ),
-                  )
                 ],
               ),
               Spacer()
