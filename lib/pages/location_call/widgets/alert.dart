@@ -22,7 +22,7 @@ class AlertCircle extends StatelessWidget {
             boxShadow: [
               BoxShadow(color: shadowColor, blurRadius: 2, spreadRadius: 2)
             ],
-            color: themeData.accentColor,
+            color: themeData.primaryColor,
           ),
           height: logic.imageHeight.h,
           child: Center(
@@ -40,7 +40,7 @@ class AlertCircle extends StatelessWidget {
                 )),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: themeData.accentColor,
+                    color: themeData.primaryColor,
                     border: Border.all(color: Colors.red, width: 3)),
               ),
             ),

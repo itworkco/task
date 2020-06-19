@@ -42,7 +42,7 @@ class OtherNumbersSheet extends StatelessWidget {
                     height: 5,
                     width: 50,
                     decoration: BoxDecoration(
-                        color: themeData.primaryColor,
+                        color: themeData.accentColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
                 ],
@@ -58,7 +58,7 @@ class OtherNumbersSheet extends StatelessWidget {
           ),
           Expanded(
             child: Material(
-              color: themeData.accentColor.withOpacity(0.5),
+              color: themeData.primaryColor.withOpacity(0.5),
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) => Padding(

@@ -8,9 +8,19 @@ import 'package:task/pages/friends/ui.dart';
 import 'package:task/pages/location_call/logic.dart';
 import 'package:task/pages/location_call/ui.dart';
 
+import 'pages/friends/logic.dart';
+
+BuildContext globalContext;
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (BuildContext context) => LocationCallLogic(), child: MyApp()));
+  runApp(MultiProvider(
+    child: MyApp(),
+    providers: [
+      ChangeNotifierProvider(create: (BuildContext context) => FriendsLogic()),
+      ChangeNotifierProvider(
+        create: (BuildContext context) => LocationCallLogic(),
+      ),
+    ],
+  ));
 }
 
 var shadowColor = Color(0xffD6D6D6);
@@ -22,11 +32,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         LocationCallUi.route: (_) => LocationCallUi(),
-        FriendsRoot.route: (_) => FriendsRoot(),
+        FriendsUi.route: (_) => FriendsUi(),
         CountrySelectRoot.route: (_) => CountrySelectRoot()
       },
       initialRoute: LocationCallUi.route,
       theme: ThemeData(
+          dialogTheme: DialogTheme(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(19)))),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: accentColor,
             elevation: 3,

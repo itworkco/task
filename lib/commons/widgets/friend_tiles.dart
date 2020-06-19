@@ -7,12 +7,16 @@ import '../../pretend_api.dart';
 class FriendsTile extends StatelessWidget {
   Widget trailing;
   int i;
-  FriendsTile({this.trailing, this.i});
+  ValueKey valueKey;
+  FriendsTile({this.trailing, this.i, this.valueKey}) : super(key: valueKey);
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      key: valueKey,
       children: <Widget>[
         ListTile(
+          key: valueKey,
           trailing: this.trailing,
           leading: CircleAvatar(
             backgroundImage: NetworkImage(PretendApi.friends[i]['avatar']),

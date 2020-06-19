@@ -6,20 +6,11 @@ import 'package:task/commons/widgets/back_button.dart';
 import 'package:task/commons/widgets/friend_tiles.dart';
 import 'package:task/emergency/constants.dart';
 import 'package:task/pages/friends/logic.dart';
-
-class FriendsRoot extends StatelessWidget {
-  static const route = '/friends';
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      child: FriendsUi(),
-      create: (BuildContext context) => FriendsLogic(),
-    );
-  }
-}
+import 'package:task/pretend_api.dart';
 
 class FriendsUi extends StatelessWidget {
+  static const route = '/friends';
+
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -27,7 +18,7 @@ class FriendsUi extends StatelessWidget {
     FriendsLogic logic = Provider.of(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => logic.addFriend(context),
+        onPressed: () => logic.addFriend(),
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -76,21 +67,24 @@ class FriendsUi extends StatelessWidget {
               child: ReorderableListView(
                 onReorder: logic.onRecoreder,
                 children: [
-                  FriendsTile(
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(FontAwesomeIcons.trash),
-                          onPressed: () => logic.deleteFriend(context),
-                        ),
-                        Icon(
-                          FontAwesomeIcons.gripVertical,
-                          color: Color(0xff707070),
-                        ),
-                      ],
-                    ),
-                  )
+                  for (int i = 0; i < PretendApi.friends.length; i++)
+                    FriendsTile(
+                      valueKey: ValueKey(i),
+                      i: i,
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(FontAwesomeIcons.trash),
+                            onPressed: () => logic.deleteFriend(i),
+                          ),
+                          Icon(
+                            FontAwesomeIcons.gripVertical,
+                            color: Color(0xff707070),
+                          ),
+                        ],
+                      ),
+                    )
                 ],
               ),
             ),

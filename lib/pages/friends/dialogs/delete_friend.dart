@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:task/commons/widgets/alert_dialog.dart';
+
+import '../logic.dart';
 
 class DeleteFriendDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FriendsLogic logic = Provider.of(context);
+
     ThemeData themeData = Theme.of(context);
     TextTheme textTheme = themeData.textTheme;
-
+    FriendsLogic friendsLogic = Provider.of(context, listen: false);
     return MyAlertDialog(
       title: 'هل أنت متأكد من الحذف ؟',
       confirm: 'تأكيد الحذف',
-      onPressedConfirm: () {},
+      onPressedConfirm: logic.confirmDelete,
       icon: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
@@ -27,7 +32,7 @@ class DeleteFriendDialog extends StatelessWidget {
             child: Icon(
               Icons.delete,
               size: 40,
-              color: themeData.primaryColor,
+              color: themeData.accentColor,
             ),
           ),
           Icon(

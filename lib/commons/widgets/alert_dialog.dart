@@ -39,7 +39,7 @@ class MyAlertDialog extends StatelessWidget {
                       child: Text('إلغاء'))),
               Expanded(
                   child: FlatButton(
-                      color: themeData.primaryColor,
+                      color: themeData.accentColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(19))),

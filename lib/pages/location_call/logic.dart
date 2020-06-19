@@ -11,10 +11,6 @@ class LocationCallLogic extends ChangeNotifier {
   double imageHeight = 180;
   double endRadiusGlow = 100;
   double fabPadding = 0;
-  Future<String> isoCountryCode;
-  LocationCallLogic() {
-    this.isoCountryCode = _countryIsoCode;
-  }
   ScrollController scrollController = ScrollController();
   CountryModel mycountry;
   set setMyCountry(CountryModel countryModel) {
@@ -74,20 +70,13 @@ class LocationCallLogic extends ChangeNotifier {
     helpers.surroundThisBlockByProgressDialog(() async {
       var myAddress = await geoLocator
           .placemarkFromPosition(await geoLocator.getCurrentPosition());
-      var countryIsoCode = myAddress.first.isoCountryCode;
-      setMyCountry = (getMyCountry(countryIsoCode));
+      var myCountryIsoCode = myAddress.first.isoCountryCode;
+
+      setMyCountry = (getMyCountry(myCountryIsoCode));
     });
   }
 
-  Future<String> get _countryIsoCode async {
-    var geoLocator = Geolocator();
-    var myAddress = await geoLocator
-        .placemarkFromPosition(await geoLocator.getCurrentPosition());
-    var countryIsoCode = myAddress.first.isoCountryCode;
-    setMyCountry = (getMyCountry(countryIsoCode));
-    print(myAddress.first);
-    return countryIsoCode;
-  }
+  String get countryIsoCode {}
 
   void expandOtherNumbers() {
     this.bottomSheetHeight = 350;

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:task/emergency/constants.dart';
 import 'package:task/pages/friends/dialogs/add_friend/text_field.dart';
+import 'package:task/pages/friends/dialogs/choose_picker/ui.dart';
+import 'package:task/pages/friends/dialogs/close_button.dart';
 import 'package:task/pretend_api.dart';
 
 class AddFriendDialog extends StatelessWidget {
@@ -15,9 +17,7 @@ class AddFriendDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(icon: Icon(Icons.close), onPressed: () {})),
+        Align(alignment: Alignment.centerLeft, child: CloseDialogButton()),
         Center(
           child: Stack(
             overflow: Overflow.visible,
@@ -35,7 +35,10 @@ class AddFriendDialog extends StatelessWidget {
                     FontAwesomeIcons.camera,
                     size: 35,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                        context: context, builder: (_) => ChooseImagePicker());
+                  },
                 ),
               ),
             ],
@@ -88,7 +91,7 @@ class AddFriendDialog extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               onPressed: () {},
               child: Text('إضافة'),
-              color: themeData.primaryColor,
+              color: themeData.accentColor,
             ),
           ),
         )
