@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:task/main.dart';
 import 'package:task/pages/friends/dialogs/add_friend/add_friend.dart';
 import 'package:task/pretend_api.dart';
@@ -8,6 +9,10 @@ import 'dialogs/delete_friend.dart';
 
 class FriendsLogic extends ChangeNotifier {
   int deletedIndex;
+  ImageSource imageSource;
+  String selectedImagePath;
+  set setImageSource(ImageSource imageSource) => this.imageSource = imageSource;
+
   void confirmDelete() {
     PretendApi.friends.removeAt(deletedIndex);
     Navigator.pop(globalContext);
@@ -43,5 +48,13 @@ class FriendsLogic extends ChangeNotifier {
                   borderRadius: BorderRadius.all(Radius.circular(19))),
               child: AddFriendDialog(),
             ));
+  }
+
+  Future<void> pickImagePath(ImageSource imageSource) async {
+    Navigator.pop(globalContext);
+    var image = await ImagePicker().getImage(
+        source: imageSource, preferredCameraDevice: CameraDevice.rear);
+    this.selectedImagePath = image.path;
+    notifyListeners();
   }
 }

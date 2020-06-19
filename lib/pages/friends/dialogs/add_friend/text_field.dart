@@ -34,6 +34,8 @@ class AddFriendTextField extends StatelessWidget {
                     hintText: this.hint,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     suffixIcon: Icon(
                       Icons.person,
                       color: Colors.grey,

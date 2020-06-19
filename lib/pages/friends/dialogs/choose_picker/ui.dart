@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:task/pages/friends/dialogs/choose_picker/picker_option.dart';
+import 'package:task/pages/friends/logic.dart';
 
 class ChooseImagePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FriendsLogic logic = Provider.of(context);
     return Material(
       elevation: 0,
 //      backgroundColor: Colors.transparent,
@@ -26,6 +30,7 @@ class ChooseImagePicker extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ImagePickerOption(
+                    onTap: () => logic.pickImagePath(ImageSource.camera),
                     title: 'إلتقاط صورة',
                     icon: Container(
                       height: 80.h,
@@ -40,6 +45,7 @@ class ChooseImagePicker extends StatelessWidget {
                     ),
                   ),
                   ImagePickerOption(
+                    onTap: () => logic.pickImagePath(ImageSource.gallery),
                     title: 'معرض الصور',
                     icon: Stack(
                       overflow: Overflow.visible,
