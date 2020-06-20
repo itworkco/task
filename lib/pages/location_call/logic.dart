@@ -18,7 +18,9 @@ class LocationCallLogic extends ChangeNotifier {
       } else {
         expandOtherNumbers();
       }
+      notifyListeners();
     });
+
   }
   double alertSize = 200;
   double endRadiusGlow = 115;
