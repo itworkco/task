@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:task/main.dart';
 import 'package:task/pages/location_call/logic.dart';
 
 class DialCard extends StatelessWidget {
   final String image, text, number;
-  DialCard({this.text, this.number, this.image});
+  final VoidCallback onPressed;
+  DialCard({this.text, this.number, this.image, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +24,27 @@ class DialCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                        color: shadowColor, blurRadius: 2, spreadRadius: 2)
+                        color: themeData.primaryColorDark,
+                        blurRadius: 3,
+                        spreadRadius: 0.5)
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Spacer(
-                      flex: 3,
+                      flex: 6,
                     ),
                     Image.asset(
                       image,
                       width: 30.w,
                       height: 30.h,
                     ),
-                    Spacer(),
+                    Spacer(
+                      flex: 3,
+                    ),
                     Text(
                       text,
                     ),
@@ -59,9 +64,7 @@ class DialCard extends StatelessWidget {
                 elevation: 0,
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  onTap: () {
-                    logic.callNumber(number);
-                  },
+                  onTap: onPressed,
                 ))
           ],
         ),

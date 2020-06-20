@@ -43,6 +43,8 @@ dependencies:
   geolocator: ^5.3.2+2
   progress_dialog: ^1.2.4
   get: ^2.14.1
+  auto_size_text: ^2.1.0
+
 
 
 
@@ -80,10 +82,24 @@ flutter:
       - assets/images/flags/
 
   fonts:
-    - family: Sukar
+    - family: Sukar Bold
       fonts:
-        - asset: assets/fonts/Sukar.ttf
-#          weight: 900
+        - asset: assets/fonts/Sukar Bold.ttf
+          weight: 900
+
+    - family: Sukar Regular
+      fonts:
+        - asset: assets/fonts/Sukar Regular.ttf
+          weight: 500
+
+    - family: Cairo Bold
+      fonts:
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 900
+
+
+
+
 #
 #        - asset: assets/fonts/Sukar Regular.ttf
 

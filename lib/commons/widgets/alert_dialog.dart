@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task/main.dart';
 
 class MyAlertDialog extends StatelessWidget {
   //هل أنت متاكد من الحذف؟
@@ -12,46 +13,64 @@ class MyAlertDialog extends StatelessWidget {
     ThemeData themeData = Theme.of(context);
     TextTheme textTheme = themeData.textTheme;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 21.h, bottom: 32.5.h),
-          child: Text(title),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 39.h),
-          child: icon,
-        ),
-        ButtonTheme(
-          height: 53.h,
-          colorScheme: ColorScheme.dark(),
-          textTheme: ButtonTextTheme.normal,
-          child: Row(
+    return Card(
+      color: Colors.transparent,
+      elevation: 0,
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          width: 345.w,
+          height: 234.h,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Expanded(
-                  child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(19))),
-                      onPressed: () => Navigator.pop(context),
-                      color: Color(0xffBFBFBF),
-                      child: Text('إلغاء'))),
-              Expanded(
-                  child: FlatButton(
-                      color: themeData.accentColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(19))),
-                      onPressed: onPressedConfirm,
-                      child: Text(confirm))),
-            ],
-          ),
-        )
+              Spacer(
+                flex: 4,
+              ),
+              Text(title),
+              Spacer(
+                flex: 3,
+              ),
+              icon,
+              Spacer(
+                flex: 3,
+              ),
+              ButtonTheme(
+                height: 53.h,
+                colorScheme: ColorScheme.dark(),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(20))),
+                            onPressed: () => Navigator.pop(context),
+                            color: Color(0xffBFBFBF),
+                            child: Text('إلغاء'))),
+                    Expanded(
+                        child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20))),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              onPressedConfirm();
+                            },
+                            color: accentColor,
+                            child: Text(confirm))),
+                  ],
+                ),
+              )
 /*
 
 */
-      ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

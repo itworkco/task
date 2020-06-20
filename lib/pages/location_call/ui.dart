@@ -28,7 +28,7 @@ class LocationCallUi extends StatelessWidget {
           decoration: BoxDecoration(color: themeData.primaryColor, boxShadow: [
             BoxShadow(spreadRadius: 1, blurRadius: 4, color: Color(0xffD6D6D6))
           ]),
-          height: 80.h,
+          height: 67.h,
           padding: EdgeInsets.only(left: 10.w),
           child: Stack(
             children: <Widget>[
@@ -74,7 +74,7 @@ class LocationCallUi extends StatelessWidget {
             ],
           ),
         ),
-        preferredSize: Size.fromHeight(80.h),
+        preferredSize: Size.fromHeight(67.h),
       ),
       body: Stack(
         children: <Widget>[
@@ -90,43 +90,57 @@ class LocationCallUi extends StatelessWidget {
                 child: IntrinsicHeight(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Spacer(
                         flex: 4,
                       ),
                       AlertCircle(),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10.h),
-                        child:
-                            Center(child: Text('إرسال موقعك لأرقام الطوارئ')),
+                      Flexible(child: Container()),
+                      Text(
+                        'إرسال موقعك لأرقام الطوارئ',
                       ),
-                      Spacer(),
-                      SizedBox.fromSize(
-                        size: Size.fromHeight(116.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            DialCard(
-                              image: EmergencyConstants.ambulance,
-                              number: '222',
-                              text: 'إتصال بالإسعاف',
-                            ),
-                            DialCard(
-                              image: EmergencyConstants.police,
-                              number: '222',
-                              text: 'إتصال بالشرطة',
-                            ),
-                            DialCard(
-                              image: EmergencyConstants.fire,
-                              number: '222',
-                              text: 'إتصال بالإطفاء',
-                            ),
-                          ],
+                      Flexible(
+                        child: Container(),
+                        flex: 2,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: SizedBox.fromSize(
+                          size: Size.fromHeight(116.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              DialCard(
+                                image: EmergencyConstants.ambulance,
+                                number: '222',
+                                text: 'إتصال بالإسعاف',
+                                onPressed: () {
+                                  logic.callNumber('222');
+                                },
+                              ),
+                              DialCard(
+                                image: EmergencyConstants.police,
+                                number: '222',
+                                text: 'إتصال بالشرطة',
+                                onPressed: () {
+                                  logic.showPoliceConfirmDialog('222');
+                                },
+                              ),
+                              DialCard(
+                                image: EmergencyConstants.fire,
+                                number: '222',
+                                onPressed: () {
+                                  logic.callNumber('222');
+                                },
+                                text: 'إتصال بالإطفاء',
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Spacer(
-                        flex: 3,
+                        flex: 10,
                       ),
                       Spacer(),
                       OtherNumbersSheet()

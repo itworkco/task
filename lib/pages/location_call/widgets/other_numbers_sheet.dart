@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task/commons/widgets/search_field.dart';
-import 'package:task/main.dart';
 import 'package:task/pages/location_call/logic.dart';
 
 class OtherNumbersSheet extends StatelessWidget {
@@ -12,53 +12,73 @@ class OtherNumbersSheet extends StatelessWidget {
     LocationCallLogic logic = Provider.of(context);
     ThemeData themeData = Theme.of(context);
     TextTheme textTheme = themeData.textTheme;
+    KeyboardVisibility.onChange.listen((show) {
+      print(show);
+      if (show) {
+        logic.collapseOtherNumbers();
+      } else {
+        logic.expandOtherNumbers();
+      }
+    });
 
     return AnimatedContainer(
       duration: Duration(),
       height: logic.bottomSheetHeight.h,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: shadowColor,
-              spreadRadius: 5,
-              blurRadius: 5,
-            ),
-          ],
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          GestureDetector(
-            onVerticalDragUpdate: logic.onVerticalDragUpdate,
-            onVerticalDragEnd: logic.onVerticalDragEnd,
-            child: Container(
-              color: Colors.transparent,
-              height: (20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: themeData.primaryColorDark,
+                  spreadRadius: 4,
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            child: SizedBox.fromSize(
+              size: Size.fromHeight(101.h),
+              child: Column(
                 children: <Widget>[
-                  Container(
-                    height: 5,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        color: themeData.accentColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                  GestureDetector(
+                    onVerticalDragUpdate: logic.onVerticalDragUpdate,
+                    onVerticalDragEnd: logic.onVerticalDragEnd,
+                    child: Container(
+                      color: Colors.transparent,
+                      height: (30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: 5,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: Color(0xffA6D0DA),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: SearchField()),
+                  ),
+                  Spacer(
+                    flex: 3,
                   ),
                 ],
               ),
             ),
           ),
-          Center(
-            child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.w),
-                child: SearchField(
-                  onTap: logic.expandOtherNumbers,
-                )),
-          ),
           Expanded(
             child: Material(
-              color: themeData.primaryColor.withOpacity(0.5),
+              color: Colors.transparent,
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) => Padding(
@@ -67,26 +87,60 @@ class OtherNumbersSheet extends StatelessWidget {
                       left: 10.w,
                       top: index == 0 ? 20.h : 10.h,
                       bottom: 10.h),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: shadowColor, spreadRadius: 1, blurRadius: 2)
-                      ],
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: ListTile(
-                      onTap: () {},
-                      leading: Icon(FontAwesomeIcons.phone),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text('النجدة'),
-                          Text('112'),
-                        ],
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 23.w, right: 18.w),
+                        height: 60.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: themeData.primaryColorDark,
+                                spreadRadius: 0.5,
+                                blurRadius: 6)
+                          ],
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(left: 5.w),
+                              child: Icon(
+                                FontAwesomeIcons.phone,
+                                size: 24.h,
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Spacer(
+                                  flex: 8,
+                                ),
+                                Text('النجدة'),
+                                Spacer(
+                                  flex: 10,
+                                ),
+                                Text('112'),
+                                Spacer(
+                                  flex: 8,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      Positioned.fill(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            onTap: () => logic.callNumber('112'),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),

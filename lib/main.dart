@@ -13,7 +13,7 @@ import 'pages/friends/logic.dart';
 BuildContext globalContext;
 void main() {
   runApp(MultiProvider(
-    child: MyApp(),
+    child: MyMaterialApp(),
     providers: [
       ChangeNotifierProvider(create: (BuildContext context) => FriendsLogic()),
       ChangeNotifierProvider(
@@ -25,18 +25,13 @@ void main() {
 
 var shadowColor = Color(0xffD6D6D6);
 
-class MyApp extends StatelessWidget {
+class MyMaterialApp extends StatelessWidget {
   @override
-  var accentColor = Color(0xff4EA1B5);
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        LocationCallUi.route: (_) => LocationCallUi(),
-        FriendsUi.route: (_) => FriendsUi(),
-        CountrySelectRoot.route: (_) => CountrySelectRoot()
-      },
-      initialRoute: LocationCallUi.route,
-      theme: ThemeData(
+        theme: ThemeData(
+          primaryColorDark: Color(0xffD6D6D6),
+          primaryColorLight: Color(0xffE00E37),
           dialogTheme: DialogTheme(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(19)))),
@@ -47,24 +42,59 @@ class MyApp extends StatelessWidget {
           buttonTheme: ButtonThemeData(
             colorScheme: ColorScheme.dark(),
           ),
-          textTheme: TextTheme(
-              button: TextStyle(color: Colors.white),
-              headline5: TextStyle(color: accentColor),
-              subtitle2: TextStyle(
-                  color: Color(0xff707070), fontWeight: FontWeight.w900),
-              subtitle1:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
-              bodyText2: TextStyle(fontWeight: FontWeight.w900)),
-          fontFamily: 'Sukar',
+          fontFamily: 'Sukar Bold',
           iconTheme: IconThemeData(color: accentColor),
           primaryColor: Color(0xffFBFCFC),
           backgroundColor: Colors.white,
-          accentColor: accentColor),
+          accentColor: accentColor,
+        ),
+        home: MyApp());
+  }
+}
+
+var accentColor = Color(0xff4EA1B5);
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 375, height: 809, allowFontScaling: true);
+    return MaterialApp(
+      routes: {
+        LocationCallUi.route: (_) => LocationCallUi(),
+        FriendsUi.route: (_) => FriendsUi(),
+        CountrySelectRoot.route: (_) => CountrySelectRoot()
+      },
+//      home: SendLocationRoot(),
+      initialRoute: LocationCallUi.route,
+      theme: ThemeData(
+        primaryColorDark: Color(0xffD6D6D6),
+        primaryColorLight: Color(0xffE00E37),
+        dialogTheme: DialogTheme(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(19)))),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: accentColor,
+          elevation: 3,
+        ),
+        buttonTheme: ButtonThemeData(
+          colorScheme: ColorScheme.dark(),
+        ),
+        fontFamily: 'Sukar Bold',
+        iconTheme: IconThemeData(color: accentColor),
+        primaryColor: Color(0xffFBFCFC),
+        backgroundColor: Colors.white,
+        accentColor: accentColor,
+        textTheme: TextTheme(
+            button: TextStyle(color: Colors.white),
+            headline5: TextStyle(color: accentColor),
+            subtitle2: TextStyle(
+                color: Color(0xff707070), fontWeight: FontWeight.w900),
+            subtitle1:
+                TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
+            bodyText2: TextStyle(fontWeight: FontWeight.w900, fontSize: 11.sp)),
+      ),
       debugShowCheckedModeBanner: false,
       builder: (context, widget) {
-        ScreenUtil.init(context,
-            width: 357, height: 809, allowFontScaling: true);
-
         return SafeArea(
             child: ListTileTheme(iconColor: accentColor, child: widget));
       },

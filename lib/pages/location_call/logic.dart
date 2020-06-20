@@ -1,15 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:task/commons/models/country.dart';
 import 'package:task/commons/offline_data/countries.dart';
 import 'package:task/commons/widgets/helpers.dart';
+import 'package:task/main.dart';
+import 'package:task/pages/location_call/widgets/police_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LocationCallLogic extends ChangeNotifier {
-  double bottomSheetHeight = 78;
-  double imageHeight = 180;
-  double endRadiusGlow = 100;
+  double bottomSheetHeight = 102;
+  LocationCallLogic() {
+    KeyboardVisibility.onChange.listen((show) {
+      if (show) {
+        collapseOtherNumbers();
+      } else {
+        expandOtherNumbers();
+      }
+    });
+  }
+  double alertSize = 200;
+  double endRadiusGlow = 115;
+  String policeNumber;
   double fabPadding = 0;
   ScrollController scrollController = ScrollController();
   CountryModel mycountry;
@@ -19,15 +32,15 @@ class LocationCallLogic extends ChangeNotifier {
   }
 
   void onVerticalDragUpdate(DragUpdateDetails dragUpdateDetails) {
-    if (bottomSheetHeight <= 78 && dragUpdateDetails.primaryDelta >= 0 ||
-        bottomSheetHeight >= 350 && dragUpdateDetails.primaryDelta <= 0) {
+    if (bottomSheetHeight <= 103 && dragUpdateDetails.primaryDelta >= 0 ||
+        bottomSheetHeight >= 420 && dragUpdateDetails.primaryDelta <= 0) {
       return;
     }
     var primaryDelte = dragUpdateDetails.primaryDelta;
     bottomSheetHeight -= primaryDelte;
-    imageHeight += primaryDelte / 4;
+    alertSize += primaryDelte / 4;
     endRadiusGlow += primaryDelte / 8;
-    fabPadding += bottomSheetHeight - 78;
+    fabPadding += bottomSheetHeight - 102;
 
     notifyListeners();
   }
@@ -79,10 +92,17 @@ class LocationCallLogic extends ChangeNotifier {
   String get countryIsoCode {}
 
   void expandOtherNumbers() {
-    this.bottomSheetHeight = 350;
+    this.bottomSheetHeight = 420;
+    this.alertSize = 111;
   }
 
   void collapseOtherNumbers() {
-    this.bottomSheetHeight = 78;
+    this.bottomSheetHeight = 102;
+    this.alertSize = 200;
+  }
+
+  void showPoliceConfirmDialog(String number) {
+    this.policeNumber = number;
+    showDialog(context: globalContext, builder: (_) => PoliceDialog());
   }
 }
