@@ -82,13 +82,10 @@ flutter:
       - assets/images/flags/
 
   fonts:
-    - family: Sukar Bold
+    - family: Sukar
       fonts:
         - asset: assets/fonts/Sukar Bold.ttf
           weight: 900
-
-    - family: Sukar Regular
-      fonts:
         - asset: assets/fonts/Sukar Regular.ttf
           weight: 500
 

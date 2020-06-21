@@ -1,6 +1,6 @@
 import 'package:dashed_container/dashed_container.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class MyDashedCircle extends StatelessWidget {
   double height, width;
   MyDashedCircle(this.height, this.width);
@@ -8,8 +8,8 @@ class MyDashedCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     return DashedContainer(
       child: Container(
-        height: height,
-        width: width,
+        height: height.h,
+        width: width.w,
         decoration:
             BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
       ),

@@ -79,18 +79,30 @@ class MyApp extends StatelessWidget {
         buttonTheme: ButtonThemeData(
           colorScheme: ColorScheme.dark(),
         ),
-        fontFamily: 'Sukar Bold',
+        fontFamily: 'Sukar',
         iconTheme: IconThemeData(color: accentColor),
         primaryColor: Color(0xffFBFCFC),
         backgroundColor: Colors.white,
         accentColor: accentColor,
         textTheme: TextTheme(
+            bodyText1: TextStyle(
+                color: Colors.white, //16
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500),
+            headline6: TextStyle(
+                color: Colors.white,
+                //22
+                fontSize: 19.25.sp,
+                fontWeight: FontWeight.w900),
             button: TextStyle(color: Colors.white),
-            headline5: TextStyle(color: accentColor),
-            subtitle2: TextStyle(
-                color: Color(0xff707070), fontWeight: FontWeight.w900),
-            subtitle1:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
+            headline5: TextStyle(
+              color: accentColor,
+            ),
+//            subtitle2: TextStyle(color: Colors.white, fontSize: 12.25.sp),
+            subtitle1: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w900,
+                fontSize: 12.25.sp),
             bodyText2: TextStyle(fontWeight: FontWeight.w900, fontSize: 11.sp)),
       ),
       debugShowCheckedModeBanner: false,

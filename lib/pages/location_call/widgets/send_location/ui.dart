@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:task/commons/paths/Images.dart';
+import 'package:task/commons/screen_converter.dart';
 import 'package:task/commons/widgets/back_button.dart';
 import 'package:task/pretend_api.dart';
 
@@ -69,152 +70,189 @@ class SendLocationUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SendLocationLogic logic = Provider.of(context);
-    return Stack(children: <Widget>[
-      Scaffold(),
-      Positioned.fill(
-          child: Material(
-              child: Container(
-                  color: Colors.red.withOpacity(0.9),
-                  child: Column(children: [
-                    Spacer(),
-                    Align(
-                      child: MyBackButton(),
-                      alignment: Alignment.centerLeft,
+    ThemeData themeData = Theme.of(context);
+    TextTheme textTheme = themeData.textTheme;
+    return Material(
+        color: Color(0xffD23553).withOpacity(0.93),
+        child: Column(children: [
+          Spacer(
+            flex: 2,
+          ),
+          Align(
+            child: MyBackButton(
+              color: Colors.white,
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+          Spacer(),
+          Text(
+            'إرسال موقعك',
+            style: textTheme.headline6,
+          ),
+          Spacer(
+            flex: 3,
+          ),
+          Text(
+            'يتم إرسال موقعك لأرقام الطوارئ الخاصة بك',
+            style: textTheme.bodyText1,
+          ),
+          Spacer(flex: 4),
+          Stack(
+            children: <Widget>[
+              ScaleTransition(
+                scale: logic.dashedCircleScaleAnimation,
+                child: Stack(
+                  children: <Widget>[
+                    MyDashedCircle(200, 200),
+                    Positioned.fill(
+                      child: Center(child: MyDashedCircle(150, 150)),
                     ),
-                    Spacer(),
-                    Text('إرسال موقعك'),
-                    Spacer(),
-                    Text('يتم إرسال موقعك لأرقام الطوارئ الخاصة بك'),
-                    Spacer(flex: 4),
-                    Stack(
-                      children: <Widget>[
-                        ScaleTransition(
-                          scale: logic.dashedCircleScaleAnimation,
-                          child: Stack(
+                  ],
+                ),
+              ),
+              Positioned.fill(
+                  child: Center(
+                      child: Image.asset(
+                ImagesPath.alarm,
+                color: Colors.white,
+                height: 82.h,
+                width: 75.w,
+              ))),
+            ],
+          ),
+          Spacer(
+            flex: 4,
+          ),
+          SlideTransition(
+            position: logic.friendsRowAnimation,
+            child: Row(
+              children: <Widget>[
+                Spacer(
+                  flex: 8,
+                ),
+                SlideTransition(
+                  position: logic.thirdAndFourthAvatarAnimation,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
+                    radius: ScreenConverter.aspectRatioConverter(20),
+                  ),
+                ),
+                Spacer(),
+                SlideTransition(
+                  position: logic.thirdAndFourthAvatarAnimation,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
+                    radius: ScreenConverter.aspectRatioConverter(20),
+                  ),
+                ),
+                Spacer(),
+                AnimatedBuilder(
+                  animation: logic.friendsOpacityAnimation,
+                  builder: (BuildContext context, Widget child) =>
+                      SlideTransition(
+                    position: logic.secondAvatarAnimation,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
+                      radius: ScreenConverter.aspectRatioConverter(
+                          logic.avatarScaleAnimation.value),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                AnimatedBuilder(
+                  animation: logic.friendsOpacityAnimation,
+                  builder: (BuildContext context, Widget child) =>
+                      SlideTransition(
+                    position: logic.firstAvatarAnimation,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
+                      radius: ScreenConverter.aspectRatioConverter(
+                          logic.avatarScaleAnimation.value),
+                    ),
+                  ),
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                Spacer(
+                  flex: 8,
+                ),
+              ],
+            ),
+          ),
+          Spacer(
+            flex: 1,
+          ),
+          FadeTransition(
+//            opacity: logic.friendsOpacityAnimation,
+            opacity: AlwaysStoppedAnimation(1),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          opaque: false,
+                          pageBuilder: (BuildContext context, _, __) {
+                            return Container(
+                              color: Colors.red.withOpacity(0.5),
+                            );
+                          }));
+                    },
+                    child: Text('!!!!')),
+                for (int i = 0; i < 2; i++)
+                  ListTileTheme(
+                    iconColor: Colors.white,
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: ListTile(
+                        contentPadding:
+                            EdgeInsets.only(right: 88.w, left: 21.66.w),
+                        trailing: logic.checkMark == null
+                            ? null
+                            : Icon(
+                                logic.checkMark,
+                                color: Colors.white,
+                              ),
+                        subtitle: Padding(
+                          padding: EdgeInsets.only(top: 10.h),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              MyDashedCircle(200, 200),
-                              Positioned.fill(
-                                child: Center(child: MyDashedCircle(150, 150)),
+                              Icon(
+                                FontAwesomeIcons.phone,
+                                size: ScreenConverter.aspectRatioConverter(15),
+                                color: Colors.white,
+                              ),
+                              Padding(padding: EdgeInsets.only(right: 5.w)),
+                              Text(
+                                PretendApi.friends[i]['phone'],
+                                style: textTheme.subtitle1
+                                    .copyWith(color: Colors.white),
                               ),
                             ],
                           ),
                         ),
-                        Positioned.fill(
-                            child: Center(
-                                child: Image.asset(
-                          ImagesPath.alarm,
-                          color: Colors.white,
-                          height: 80,
-                          width: 80,
-                        ))),
-                      ],
-                    ),
-                    Spacer(
-                      flex: 4,
-                    ),
-                    SlideTransition(
-                      position: logic.friendsRowAnimation,
-                      child: Row(
-                        children: <Widget>[
-                          Spacer(
-                            flex: 8,
-                          ),
-                          SlideTransition(
-                            position: logic.thirdAndFourthAvatarAnimation,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
-                              radius: 20,
-                            ),
-                          ),
-                          Spacer(),
-                          SlideTransition(
-                            position: logic.thirdAndFourthAvatarAnimation,
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
-                              radius: 20,
-                            ),
-                          ),
-                          Spacer(),
-                          AnimatedBuilder(
-                            animation: logic.friendsOpacityAnimation,
-                            builder: (BuildContext context, Widget child) =>
-                                SlideTransition(
-                              position: logic.secondAvatarAnimation,
-                              child: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
-                                radius: logic.avatarScaleAnimation.value,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          AnimatedBuilder(
-                            animation: logic.friendsOpacityAnimation,
-                            builder: (BuildContext context, Widget child) =>
-                                SlideTransition(
-                              position: logic.firstAvatarAnimation,
-                              child: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'https://i.pinimg.com/originals/fb/22/e0/fb22e0ebdc493fd74113072b37fe450a.jpg'),
-                                radius: logic.avatarScaleAnimation.value,
-                              ),
-                            ),
-                          ),
-                          Spacer(
-                            flex: 1,
-                          ),
-                          Spacer(
-                            flex: 8,
-                          ),
-                        ],
+                        title: Text(PretendApi.friends[i]['name']),
                       ),
                     ),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    FadeTransition(
-                      opacity: logic.friendsOpacityAnimation,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          for (int i = 0; i < 2; i++)
-                            Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: ListTile(
-                                contentPadding: EdgeInsets.only(right: 80.w),
-                                trailing: logic.checkMark == null
-                                    ? null
-                                    : Icon(logic.checkMark),
-                                subtitle: Padding(
-                                  padding: EdgeInsets.only(top: 10.h),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Icon(
-                                        FontAwesomeIcons.phone,
-                                        size: 15,
-                                        color: Color(0xff707070),
-                                      ),
-                                      Text(PretendApi.friends[i]['phone']),
-                                    ],
-                                  ),
-                                ),
-                                title: Text(PretendApi.friends[i]['name']),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    Spacer(
-                      flex: 15,
-                    )
-                  ])))),
-      FloatingActionButton(onPressed: () {
-        logic.startCycle();
-      })
-    ]);
+                  ),
+              ],
+            ),
+          ),
+          Text(
+            'سيتم أرسال رسالة ثانية لباقي أرقام الطوارئ اذا لم \n توجد استجابة',
+            textAlign: TextAlign.center,
+            style: textTheme.bodyText1,
+          ),
+          Spacer(
+            flex: 15,
+          )
+        ]));
   }
 }
 

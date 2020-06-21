@@ -10,7 +10,7 @@ import 'package:task/pages/location_call/logic.dart';
 import 'package:task/pages/location_call/widgets/alert.dart';
 import 'package:task/pages/location_call/widgets/dial_card.dart';
 
-import 'widgets/other_numbers_sheet.dart';
+import 'widgets/other_numbers_sheet/ui.dart';
 
 class LocationCallUi extends StatelessWidget {
   static const route = '/location_call';
@@ -18,10 +18,11 @@ class LocationCallUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     globalContext = context;
-    LocationCallLogic logic = Provider.of(context);
+    LocationCallLogic logic = Provider.of(context, listen: true);
     ThemeData themeData = Theme.of(context);
     TextTheme textTheme = themeData.textTheme;
     return Scaffold(
+      key: logic.scaffoldKey,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         child: Container(

@@ -1,4 +1,11 @@
 class PretendApi {
+  static var numbers = [
+    {'name': 'النجدة', 'number': '111'},
+    {'name': 'طوارئ الغاز', 'number': '222'},
+    {'name': 'أعطال الكهرباء', 'number': '33'},
+    {'name': 'أعطال المياه', 'number': '444'},
+  ];
+
   static List<Map> friends = [
     {
       'name': 'بكري سعيد',

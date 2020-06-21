@@ -52,16 +52,17 @@ class SendLocationLogic extends ChangeNotifier {
     );
 
     dashedCircleScaleAnimationController = AnimationController(
-        vsync: tickerProvider, duration: Duration(milliseconds: 300));
+        vsync: tickerProvider, duration: Duration(milliseconds: 700));
     dashedCircleScaleAnimation = Tween<double>(begin: 0.3, end: 1.2).animate(
       dashedCircleScaleAnimationController,
     );
     friendsRowAnimationController = AnimationController(
-        vsync: tickerProvider, duration: Duration(milliseconds: 300));
+        vsync: tickerProvider, duration: Duration(milliseconds: 700));
     friendsRowAnimation =
         Tween<Offset>(begin: Offset.zero, end: Offset(0, 0.5)).animate(
       friendsRowAnimationController,
     );
+    startCycle();
   }
 
   int _start = 5;
